@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360">
+  <rect width="480" height="360" fill="#eef7ee"/>
+  <rect x="1" y="1" width="478" height="358" fill="none" stroke="#a3d3a3" stroke-width="2"/>
+  <g transform="translate(240,150)">
+    <path d="M0,-40 C30,-40 45,-15 40,10 C35,35 10,45 0,45 C-10,45 -35,35 -40,10 C-45,-15 -30,-40 0,-40 Z" fill="#67c23a" opacity="0.7"/>
+    <path d="M0,-40 C0,-10 0,20 0,45" stroke="#4c9a2a" stroke-width="3" fill="none"/>
+  </g>
+  <text x="240" y="230" font-size="20" text-anchor="middle" fill="#5a7a5a" font-family="'Microsoft YaHei', sans-serif">示例图片 · 暂无原图</text>
+</svg>

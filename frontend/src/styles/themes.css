@@ -1,0 +1,56 @@
+[data-theme='ocean'] {
+  --el-color-primary: #2f7de1;
+  --el-color-primary-light-3: #6ba1eb;
+  --el-color-primary-light-5: #93bcf0;
+  --el-color-primary-light-7: #bbd6f6;
+  --el-color-primary-light-8: #d1e4fa;
+  --el-color-primary-light-9: #e8f1fc;
+  --el-color-primary-dark-2: #2664b8;
+
+  --shell-navy-top: #0d1b2a;
+  --shell-navy-bottom: #060d16;
+
+  --accent-home: #f2a154;
+  --accent-dashboard: #2f7de1;
+  --accent-detection: #14b8a6;
+  --accent-history: #6366f1;
+  --accent-knowledge: #ec4899;
+}
+
+[data-theme='purple'] {
+  --el-color-primary: #7c5cff;
+  --el-color-primary-light-3: #a08bff;
+  --el-color-primary-light-5: #bcaeff;
+  --el-color-primary-light-7: #d8d1ff;
+  --el-color-primary-light-8: #e6e0ff;
+  --el-color-primary-light-9: #f3f0ff;
+  --el-color-primary-dark-2: #6242e0;
+
+  --shell-navy-top: #1a1030;
+  --shell-navy-bottom: #0d0819;
+
+  --accent-home: #f59e0b;
+  --accent-dashboard: #7c5cff;
+  --accent-detection: #10b981;
+  --accent-history: #06b6d4;
+  --accent-knowledge: #e11d48;
+}
+
+[data-theme='sunset'] {
+  --el-color-primary: #ff7a45;
+  --el-color-primary-light-3: #ff9d70;
+  --el-color-primary-light-5: #ffbb9b;
+  --el-color-primary-light-7: #ffd9c4;
+  --el-color-primary-light-8: #ffe7da;
+  --el-color-primary-light-9: #fff3ec;
+  --el-color-primary-dark-2: #db5e2c;
+
+  --shell-navy-top: #2b1710;
+  --shell-navy-bottom: #180d08;
+
+  --accent-home: #ffd166;
+  --accent-dashboard: #ff7a45;
+  --accent-detection: #06d6a0;
+  --accent-history: #118ab2;
+  --accent-knowledge: #ef476f;
+}

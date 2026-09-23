@@ -1,0 +1,6 @@
+INFO:     Started server process [17928]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+WARNING:  Invalid HTTP request received.
+INFO:     127.0.0.1:63372 - "GET /api/detections?keyword=%e7%a8%bb%e9%a3%9e%e8%99%b1&page=1&page_size=5 HTTP/1.1" 200 OK
