@@ -1,0 +1,14 @@
+{
+  "name": "pipeline-widget",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix frontend && pip install -r backend/requirements.txt",
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "cd backend && python -m uvicorn app.main:app --reload",
+    "dev:frontend": "npm run dev --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

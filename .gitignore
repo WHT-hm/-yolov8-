@@ -1,0 +1,26 @@
+# 依赖目录
+node_modules/
+frontend/dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# 数据库与运行时数据（本地持久化文件，不应提交）
+backend/app/data/*.db
+backend/app/data/*.db-journal
+
+# 用户上传的图片（运行时生成，不应提交）
+backend/static/uploads/*
+!backend/static/uploads/.gitkeep
+
+# 日志
+*.log
+
+# 编辑器 / 系统文件
+.DS_Store
+.vscode/
+.idea/
