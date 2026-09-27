@@ -37,6 +37,21 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <el-row :gutter="20" class="chart-row">
+      <el-col :span="12">
+        <el-card shadow="hover">
+          <template #header>各病虫害受害程度排行</template>
+          <v-chart class="chart" :option="damageRankingOption" autoresize />
+        </el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card shadow="hover">
+          <template #header>受害部位分布</template>
+          <v-chart class="chart" :option="partDistributionOption" autoresize />
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -47,13 +62,24 @@ import { getDashboardStats } from '../api/dashboard'
 const loading = ref(false)
 const stats = ref(null)
 
+// 安全的置信度显示函数
+function normalizeConfidence(value) {
+  if (typeof value === 'number') {
+    if (value > 1) {
+      return (value / 100).toFixed(0)
+    }
+    return (value * 100).toFixed(0)
+  }
+  return '0'
+}
+
 const statCards = computed(() => {
   if (!stats.value) return []
   return [
     { label: '总检测次数', value: stats.value.total_detections, icon: 'Tickets', color: '#3d63e0' },
     { label: '今日检测次数', value: stats.value.today_detections, icon: 'Camera', color: '#1f9d6b' },
     { label: '涉及病虫害种类', value: stats.value.pest_species_count, icon: 'Warning', color: '#b6552f' },
-    { label: '平均置信度', value: (stats.value.avg_confidence * 100).toFixed(0) + '%', icon: 'DataAnalysis', color: '#12a3b0' },
+    { label: '平均置信度', value: normalizeConfidence(stats.value.avg_confidence) + '%', icon: 'DataAnalysis', color: '#12a3b0' },
   ]
 })
 
@@ -105,6 +131,46 @@ const trendOption = computed(() => ({
       lineStyle: { color: '#3d63e0', width: 3 },
       itemStyle: { color: '#3d63e0' },
       data: (stats.value?.trend || []).map((d) => d.count),
+    },
+  ],
+}))
+
+const damageRankingOption = computed(() => {
+  const ranking = [...(stats.value?.damage_ranking || [])].sort((a, b) => a.avg_damage_ratio - b.avg_damage_ratio)
+  return {
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    grid: { left: 90, right: 30, top: 20, bottom: 20 },
+    xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}%' } },
+    yAxis: { type: 'category', data: ranking.map((d) => d.pest_name) },
+    series: [
+      {
+        type: 'bar',
+        barWidth: 16,
+        label: { show: true, position: 'right', formatter: '{c}%' },
+        data: ranking.map((d) => ({
+          value: d.avg_damage_ratio,
+          itemStyle: { color: d.avg_damage_ratio >= 60 ? '#f56c6c' : d.avg_damage_ratio >= 30 ? '#e6a23c' : '#67c23a' },
+        })),
+      },
+    ],
+  }
+})
+
+const partPalette = { 叶片: '#1f9d6b', 茎秆: '#e6a23c', 根部: '#b6552f', 其他: '#909399' }
+const partDistributionOption = computed(() => ({
+  tooltip: { trigger: 'item' },
+  legend: { bottom: 0 },
+  series: [
+    {
+      type: 'pie',
+      radius: ['40%', '70%'],
+      itemStyle: { borderRadius: 6, borderColor: '#fff', borderWidth: 2 },
+      label: { formatter: '{b}\n{d}%' },
+      data: (stats.value?.part_distribution || []).map((d) => ({
+        name: d.part,
+        value: d.count,
+        itemStyle: { color: partPalette[d.part] || '#409eff' },
+      })),
     },
   ],
 }))

@@ -36,12 +36,18 @@
         </el-table-column>
         <el-table-column label="病虫害类型">
           <template #default="{ row }">
-            <el-tag v-for="p in row.pest_types" :key="p" class="pest-tag" size="small">{{ p }}</el-tag>
+            <el-tag
+              v-for="p in row.pest_types"
+              :key="p"
+              class="pest-tag pest-tag-link"
+              size="small"
+              @click="goKnowledge(p)"
+            >{{ p }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="crop_type" label="作物类型" width="100" />
         <el-table-column label="置信度" width="100">
-          <template #default="{ row }">{{ (row.avg_confidence * 100).toFixed(0) }}%</template>
+          <template #default="{ row }">{{ normalizeConfidence(row.avg_confidence) }}%</template>
         </el-table-column>
         <el-table-column label="严重程度" width="100">
           <template #default="{ row }">
@@ -94,9 +100,17 @@
           <el-descriptions-item label="严重程度">
             <el-tag :type="severityTagType(detail.severity)">{{ detail.severity }}</el-tag>
           </el-descriptions-item>
-          <el-descriptions-item label="平均置信度">{{ (detail.avg_confidence * 100).toFixed(0) }}%</el-descriptions-item>
+          <el-descriptions-item label="平均置信度">{{ normalizeConfidence(detail.avg_confidence) }}%</el-descriptions-item>
           <el-descriptions-item label="检测时间">{{ formatTime(detail.created_at) }}</el-descriptions-item>
         </el-descriptions>
+
+        <div class="box-list">
+          <div v-for="(box, idx) in detail.boxes" :key="idx" class="box-row">
+            <span class="box-pest-link" @click="goKnowledge(box.pest_name)">{{ box.pest_name }}</span>
+            <el-tag size="small" type="info" effect="plain">{{ box.plant_part }}</el-tag>
+            <span class="box-damage">受害占比 {{ box.damage_ratio }}%</span>
+          </div>
+        </div>
       </div>
     </el-dialog>
   </div>
@@ -104,12 +118,24 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { RefreshLeft, Search } from '@element-plus/icons-vue'
 import { deleteDetection, getDetection, getMetaOptions, listDetections } from '../api/detection'
 
 const route = useRoute()
+const router = useRouter()
+
+// 安全的置信度显示函数
+function normalizeConfidence(value) {
+  if (typeof value === 'number') {
+    if (value > 1) {
+      return (value / 100).toFixed(0)
+    }
+    return (value * 100).toFixed(0)
+  }
+  return '0'
+}
 
 const records = ref([])
 const total = ref(0)
@@ -171,6 +197,10 @@ function severityTagType(level) {
   return { 低: 'success', 中: 'warning', 高: 'danger' }[level] || 'info'
 }
 
+function goKnowledge(pestName) {
+  router.push({ path: '/knowledge', query: { name: pestName } })
+}
+
 function formatTime(iso) {
   return new Date(iso).toLocaleString('zh-CN')
 }
@@ -198,6 +228,12 @@ onMounted(async () => {
 }
 .pest-tag {
   margin: 2px 4px 2px 0;
+}
+.pest-tag-link {
+  cursor: pointer;
+}
+.pest-tag-link:hover {
+  opacity: 0.8;
 }
 .pagination {
   margin-top: 16px;
@@ -231,5 +267,31 @@ onMounted(async () => {
 }
 .detail-desc {
   margin-top: 8px;
+}
+.box-list {
+  margin-top: 16px;
+}
+.box-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f2f0;
+}
+.box-row:last-child {
+  border-bottom: none;
+}
+.box-pest-link {
+  font-weight: 600;
+  color: var(--el-color-primary);
+  cursor: pointer;
+  min-width: 70px;
+}
+.box-pest-link:hover {
+  text-decoration: underline;
+}
+.box-damage {
+  font-size: 13px;
+  color: #606266;
 }
 </style>

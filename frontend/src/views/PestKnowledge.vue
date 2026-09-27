@@ -10,7 +10,8 @@
     <el-row :gutter="20" class="card-grid">
       <el-col :span="6" v-for="item in filteredList" :key="item.name">
         <el-card shadow="hover" class="pest-card" @click="openDetail(item)">
-          <div class="pest-icon" :class="severityClass(item.severity)">🐛</div>
+          <img v-if="item.imageUrl" :src="item.imageUrl" class="pest-thumb" :class="severityClass(item.severity)" />
+          <div v-else class="pest-icon" :class="severityClass(item.severity)">🐛</div>
           <div class="pest-name">{{ item.name }}</div>
           <div class="pest-crop">
             <el-tag size="small" type="info">{{ item.cropType }}</el-tag>
@@ -34,6 +35,28 @@
           <el-descriptions-item label="危害症状">{{ detail.symptoms }}</el-descriptions-item>
           <el-descriptions-item label="防治建议">{{ detail.prevention }}</el-descriptions-item>
         </el-descriptions>
+
+        <div class="appearance-section">
+          <div class="appearance-title">外观识别</div>
+          <div class="appearance-body">
+            <img v-if="detail.imageUrl" :src="detail.imageUrl" class="appearance-photo" />
+            <div v-else class="appearance-icon" :class="severityClass(detail.severity)">🐛</div>
+            <div class="appearance-actions">
+              <a
+                class="search-link"
+                :href="imageSearchUrl(detail.name)"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <el-button type="primary" plain :icon="Search">在线搜图识别</el-button>
+              </a>
+              <div v-if="detail.imageCredit" class="appearance-credit">{{ detail.imageCredit }}</div>
+              <div class="appearance-hint">
+                {{ detail.imageUrl ? '图片来自开放授权图库，仅供外观参考；' : '本应用暂未内置该虫害的实拍图片，' }}如需更多图片可点击右侧按钮前往搜索引擎查看
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </el-dialog>
   </div>
@@ -42,6 +65,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { Search } from '@element-plus/icons-vue'
 import { cropTypes, pestKnowledgeBase } from '../data/pestKnowledge'
 
 const route = useRoute()
@@ -65,6 +89,10 @@ function severityClass(level) {
 function openDetail(item) {
   detail.value = item
   detailVisible.value = true
+}
+
+function imageSearchUrl(name) {
+  return `https://image.baidu.com/search/index?tn=baiduimage&word=${encodeURIComponent(name + ' 病虫害')}`
 }
 
 onMounted(() => {
@@ -106,6 +134,24 @@ onMounted(() => {
 .pest-icon.is-high {
   background: #fdeaea;
 }
+.pest-thumb {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  display: block;
+  border: 2px solid transparent;
+}
+.pest-thumb.is-low {
+  border-color: #67c23a;
+}
+.pest-thumb.is-mid {
+  border-color: #e6a23c;
+}
+.pest-thumb.is-high {
+  border-color: #f56c6c;
+}
 .pest-name {
   font-size: 16px;
   font-weight: 700;
@@ -135,5 +181,65 @@ onMounted(() => {
 }
 .detail-desc {
   margin-top: 8px;
+}
+.appearance-section {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #ebeef5;
+}
+.appearance-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1b2a38;
+  margin-bottom: 12px;
+}
+.appearance-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.appearance-icon {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  background: #eaf5ea;
+}
+.appearance-icon.is-low {
+  background: #eef9ea;
+}
+.appearance-icon.is-mid {
+  background: #fdf3e2;
+}
+.appearance-icon.is-high {
+  background: #fdeaea;
+}
+.appearance-photo {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.appearance-credit {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #c0c4cc;
+}
+.appearance-actions {
+  flex: 1;
+}
+.search-link {
+  text-decoration: none;
+}
+.appearance-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #909399;
+  line-height: 1.6;
 }
 </style>

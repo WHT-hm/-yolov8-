@@ -17,6 +17,25 @@
       <div class="hero-decor">🐛🌿🦗</div>
     </section>
 
+    <section class="risk-alert-section" v-if="riskAlert">
+      <el-alert
+        :type="riskAlertType(riskAlert.level)"
+        :closable="false"
+        show-icon
+        class="risk-alert"
+      >
+        <template #title>
+          <span class="risk-title">环境风险预警：{{ riskAlert.level }}风险</span>
+          <span v-if="riskAlert.pest_name" class="risk-pest-link" @click="goKnowledge(riskAlert.pest_name)">
+            查看「{{ riskAlert.pest_name }}」防治建议 &gt;
+          </span>
+        </template>
+        <div class="risk-message">{{ riskAlert.message }}</div>
+        <div class="risk-basis">{{ riskAlert.basis }}</div>
+        <div class="risk-disclaimer">以下预警基于近期模拟检测数据趋势估算，非真实气象数据来源</div>
+      </el-alert>
+    </section>
+
     <section class="stats-strip" v-loading="loading">
       <div class="stat-item" v-for="s in statItems" :key="s.label">
         <div class="stat-num" :style="{ color: s.color }">{{ s.value }}</div>
@@ -55,7 +74,7 @@
                 <span class="timeline-link" @click="goHistory(item)">
                   {{ item.pest_types.join('、') }}
                 </span>
-                <span class="timeline-sub">· {{ item.crop_type }} · 置信度 {{ (item.avg_confidence * 100).toFixed(0) }}%</span>
+                <span class="timeline-sub">· {{ item.crop_type }} · 置信度 {{ normalizeConfidence(item.avg_confidence) }}%</span>
               </el-timeline-item>
             </el-timeline>
           </el-card>
@@ -85,16 +104,28 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Camera, DataAnalysis } from '@element-plus/icons-vue'
-import { getDashboardStats } from '../api/dashboard'
+import { getDashboardStats, getRiskAlert } from '../api/dashboard'
 import { listDetections } from '../api/detection'
 import { pestKnowledgeBase } from '../data/pestKnowledge'
 
 const router = useRouter()
 
+// 安全的置信度显示函数
+function normalizeConfidence(value) {
+  if (typeof value === 'number') {
+    if (value > 1) {
+      return (value / 100).toFixed(0)
+    }
+    return (value * 100).toFixed(0)
+  }
+  return '0'
+}
+
 const loading = ref(false)
 const stats = ref(null)
 const activityLoading = ref(false)
 const recentActivity = ref([])
+const riskAlert = ref(null)
 
 const statItems = computed(() => [
   { label: '累计检测次数', value: stats.value?.total_detections ?? '--', color: 'var(--accent-home)' },
@@ -102,7 +133,7 @@ const statItems = computed(() => [
   { label: '覆盖病虫害种类', value: stats.value?.pest_species_count ?? '--', color: 'var(--accent-knowledge)' },
   {
     label: '平均识别置信度',
-    value: stats.value ? (stats.value.avg_confidence * 100).toFixed(0) + '%' : '--',
+    value: stats.value ? normalizeConfidence(stats.value.avg_confidence) + '%' : '--',
     color: 'var(--accent-history)',
   },
 ])
@@ -128,6 +159,18 @@ function goHistory(item) {
   router.push({ path: '/history', query: { keyword: item.pest_types[0] } })
 }
 
+function goKnowledge(pestName) {
+  router.push({ path: '/knowledge', query: { name: pestName } })
+}
+
+function riskAlertType(level) {
+  return { 低: 'success', 中: 'warning', 高: 'error' }[level] || 'info'
+}
+
+async function fetchRiskAlert() {
+  riskAlert.value = await getRiskAlert()
+}
+
 async function fetchStats() {
   loading.value = true
   try {
@@ -150,6 +193,7 @@ async function fetchActivity() {
 onMounted(() => {
   fetchStats()
   fetchActivity()
+  fetchRiskAlert()
 })
 </script>
 
@@ -219,6 +263,41 @@ onMounted(() => {
   font-size: 64px;
   opacity: 0.25;
   letter-spacing: 12px;
+}
+
+.risk-alert-section {
+  margin-bottom: 24px;
+}
+.risk-alert :deep(.el-alert__title) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.risk-title {
+  font-weight: 700;
+}
+.risk-pest-link {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--el-color-primary);
+}
+.risk-pest-link:hover {
+  text-decoration: underline;
+}
+.risk-message {
+  margin-top: 4px;
+  font-size: 13px;
+}
+.risk-basis {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #909399;
+}
+.risk-disclaimer {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #c0c4cc;
 }
 
 .stats-strip {

@@ -4,14 +4,23 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from .database import Base, engine
-from .routers import auth, dashboard, detections, meta, settings
+from .database import Base, engine, SessionLocal
+from .routers import auth, dashboard, detections, meta, settings, organizations, realtime
+from . import auth as auth_module
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_DIR = BASE_DIR / "static"
 (STATIC_DIR / "uploads").mkdir(parents=True, exist_ok=True)
 
+# 创建所有表
 Base.metadata.create_all(bind=engine)
+
+# 初始化超级管理员（如需要的话）
+db = SessionLocal()
+try:
+    auth_module.ensure_super_admin(db)
+finally:
+    db.close()
 
 app = FastAPI(title="农作物病虫害检测系统 API", version="0.1.0")
 
@@ -30,6 +39,8 @@ app.include_router(settings.router)
 app.include_router(dashboard.router)
 app.include_router(detections.router)
 app.include_router(meta.router)
+app.include_router(organizations.router)
+app.include_router(realtime.router)
 
 
 @app.get("/api/health")
