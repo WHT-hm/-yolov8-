@@ -1,34 +1,10 @@
-INFO:     Will watch for changes in these directories: ['D:\\pipeline-widget\\backend']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [33140] using WatchFiles
-INFO:     Started server process [6496]
+INFO:     Started server process [31276]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     127.0.0.1:61761 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61762 - "GET /api/dashboard/risk-alert HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61763 - "GET /api/detections/1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61769 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61770 - "GET /api/detections?page=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61771 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61772 - "GET /api/detections?page=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52799 - "GET /api/dashboard/risk-alert HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52804 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49852 - "GET /api/detections?page=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49853 - "GET /api/dashboard/risk-alert HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49854 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59969 - "GET /api/meta/pest-types HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52802 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52803 - "GET /api/dashboard/risk-alert HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52804 - "GET /api/detections?page=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64113 - "GET /api/detections?page=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64114 - "GET /api/dashboard/risk-alert HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64115 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62692 - "GET /api/detections?page=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62693 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62694 - "GET /api/dashboard/risk-alert HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62591 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62592 - "GET /api/detections?page=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62593 - "GET /api/dashboard/risk-alert HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54173 - "GET /api/dashboard/risk-alert HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54174 - "GET /api/detections?page=1&page_size=5 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54175 - "GET /api/dashboard/stats HTTP/1.1" 200 OK
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+INFO:     ('127.0.0.1', 55269) - "WebSocket /api/ws/detect?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZXhwIjoxNzkxMjQ5MDg4fQ.4ZOHSyQ3Ki2DAItcrQ59m1Oyj1msw1tJ4XGQBR5NUhI" [accepted]
+INFO:     connection open
+INFO:     connection closed
+INFO:     ('127.0.0.1', 62203) - "WebSocket /api/ws/detect?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZXhwIjoxNzkxMjQ5MDg4fQ.4ZOHSyQ3Ki2DAItcrQ59m1Oyj1msw1tJ4XGQBR5NUhI" [accepted]
+INFO:     connection open
+INFO:     connection closed
