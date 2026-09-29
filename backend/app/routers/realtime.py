@@ -1,10 +1,8 @@
 """实时视频检测 WebSocket 接口"""
 import base64
 import json
-from io import BytesIO
 
 from fastapi import APIRouter, WebSocket, Query, WebSocketDisconnect
-from PIL import Image
 
 from .. import auth, mock_data
 
@@ -77,7 +75,8 @@ async def websocket_detect(
                         image_data = image_data.split(",", 1)[1]
 
                     image_bytes = base64.b64decode(image_data)
-                    image = Image.open(BytesIO(image_bytes))
+                    # Note: Image processing is removed for now as it's not essential for mock data flow
+                    # Real YOLOv8 model integration will replace mock_data.create_mock_detection
 
                     # 生成模拟检测结果（使用 mock_data）
                     # 注意：这里暂时使用空的 image_url，因为是实时流不需要保存
