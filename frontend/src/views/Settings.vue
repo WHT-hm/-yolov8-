@@ -28,122 +28,125 @@
     </el-card>
 
     <el-card shadow="never" class="panel-card">
-      <h3 class="panel-title">实时摄像头检测</h3>
-      <p class="panel-desc">配置和启用实时摄像头病虫害检测功能。</p>
+      <el-collapse v-model="activeCollapse">
+        <el-collapse-item title="实时摄像头检测" name="camera">
+          <p class="panel-desc">配置和启用实时摄像头病虫害检测功能。</p>
 
-      <!-- 未配置状态 -->
-      <div v-if="!cameraConfig.enableCamera" class="camera-setup">
-        <el-form :model="cameraConfig" label-width="140px">
-          <el-form-item label="启用摄像头">
-            <el-switch v-model="cameraConfig.enableCamera" />
-            <span class="config-hint">启用后将在浏览器中请求摄像头权限</span>
-          </el-form-item>
+          <!-- 未配置状态 -->
+          <div v-if="!cameraConfig.enableCamera" class="camera-setup">
+            <el-form :model="cameraConfig" label-width="140px">
+              <el-form-item label="启用摄像头">
+                <el-switch v-model="cameraConfig.enableCamera" />
+                <span class="config-hint">启用后将在浏览器中请求摄像头权限</span>
+              </el-form-item>
 
-          <el-form-item label="识别间隔（毫秒）">
-            <el-input-number
-              v-model="cameraConfig.frameInterval"
-              :min="300"
-              :max="5000"
-              :step="100"
+              <el-form-item label="识别间隔（毫秒）">
+                <el-input-number
+                  v-model="cameraConfig.frameInterval"
+                  :min="300"
+                  :max="5000"
+                  :step="100"
+                />
+                <span class="config-hint">每多少毫秒发送一帧进行识别（默认800ms）</span>
+              </el-form-item>
+
+              <el-form-item label="作物类型">
+                <el-select v-model="realtimeCropType" placeholder="自动识别（可选）" clearable>
+                  <el-option v-for="c in cropTypes" :key="c" :label="c" :value="c" />
+                </el-select>
+              </el-form-item>
+            </el-form>
+
+            <el-alert
+              type="info"
+              :closable="false"
+              title="提示：启用摄像头后将请求浏览器权限。请在浏览器权限对话框中允许访问摄像头。"
+              show-icon
+              style="margin-top: 20px"
             />
-            <span class="config-hint">每多少毫秒发送一帧进行识别（默认800ms）</span>
-          </el-form-item>
+          </div>
 
-          <el-form-item label="作物类型">
-            <el-select v-model="realtimeCropType" placeholder="自动识别（可选）" clearable>
-              <el-option v-for="c in cropTypes" :key="c" :label="c" :value="c" />
-            </el-select>
-          </el-form-item>
-        </el-form>
+          <!-- 已配置状态 -->
+          <div v-else>
+            <el-row :gutter="20">
+              <el-col :span="10">
+                <el-card shadow="hover">
+                  <template #header>
+                    <span>摄像头实时检测</span>
+                    <el-button text size="small" @click="resetCameraConfig" style="float: right">
+                      修改配置
+                    </el-button>
+                  </template>
 
-        <el-alert
-          type="info"
-          :closable="false"
-          title="提示：启用摄像头后将请求浏览器权限。请在浏览器权限对话框中允许访问摄像头。"
-          show-icon
-          style="margin-top: 20px"
-        />
-      </div>
+                  <div class="realtime-video-container">
+                    <video
+                      v-show="cameraActive"
+                      ref="videoRef"
+                      class="realtime-video"
+                      playsinline
+                      autoplay
+                      muted
+                    />
+                    <div v-if="!cameraActive" class="camera-placeholder">
+                      <el-icon class="camera-icon"><VideoCamera /></el-icon>
+                      <div>点击下方"开启摄像头"开始检测</div>
+                    </div>
 
-      <!-- 已配置状态 -->
-      <div v-else>
-        <el-row :gutter="20">
-          <el-col :span="10">
-            <el-card shadow="hover">
-              <template #header>
-                <span>摄像头实时检测</span>
-                <el-button text size="small" @click="resetCameraConfig" style="float: right">
-                  修改配置
-                </el-button>
-              </template>
-
-              <div class="realtime-video-container">
-                <video
-                  v-show="cameraActive"
-                  ref="videoRef"
-                  class="realtime-video"
-                  playsinline
-                  autoplay
-                  muted
-                />
-                <div v-if="!cameraActive" class="camera-placeholder">
-                  <el-icon class="camera-icon"><VideoCamera /></el-icon>
-                  <div>点击下方"开启摄像头"开始检测</div>
-                </div>
-
-                <div v-if="cameraActive" class="realtime-overlay">
-                  <canvas ref="overlayCanvasRef" class="realtime-canvas" />
-                </div>
-              </div>
-
-              <div class="action-row">
-                <el-button
-                  v-if="!cameraActive"
-                  type="primary"
-                  :icon="VideoCamera"
-                  @click="startCamera"
-                  :loading="connectingCamera"
-                >
-                  开启摄像头
-                </el-button>
-                <el-button v-else type="danger" @click="stopCamera">
-                  关闭摄像头
-                </el-button>
-              </div>
-            </el-card>
-          </el-col>
-
-          <el-col :span="14">
-            <el-card shadow="hover" class="result-card">
-              <template #header>实时检测结果</template>
-              <el-empty v-if="!realtimeResult" description="摄像头未开启或暂无检测结果" />
-              <div v-else>
-                <el-descriptions :column="2" border>
-                  <el-descriptions-item label="严重程度">
-                    <el-tag :type="severityTagType(realtimeResult.severity)">{{ realtimeResult.severity }}</el-tag>
-                  </el-descriptions-item>
-                  <el-descriptions-item label="平均置信度">{{ normalizeConfidence(realtimeResult.avg_confidence) }}%</el-descriptions-item>
-                </el-descriptions>
-
-                <div class="result-list">
-                  <div class="result-list-title">识别到 {{ realtimeResult.pest_types.length }} 种病虫害：</div>
-                  <div v-for="pest in realtimeResult.pest_types" :key="pest" class="pest-item">
-                    <span>{{ pest }}</span>
+                    <div v-if="cameraActive" class="realtime-overlay">
+                      <canvas ref="overlayCanvasRef" class="realtime-canvas" />
+                    </div>
                   </div>
-                </div>
 
-                <el-alert
-                  type="info"
-                  :closable="false"
-                  title="实时检测结果为模拟数据演示，接入 YOLOv8 模型后将替换为真实检测结果。"
-                  show-icon
-                  style="margin-top: 20px"
-                />
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-      </div>
+                  <div class="action-row">
+                    <el-button
+                      v-if="!cameraActive"
+                      type="primary"
+                      :icon="VideoCamera"
+                      @click="startCamera"
+                      :loading="connectingCamera"
+                    >
+                      开启摄像头
+                    </el-button>
+                    <el-button v-else type="danger" @click="stopCamera">
+                      关闭摄像头
+                    </el-button>
+                  </div>
+                </el-card>
+              </el-col>
+
+              <el-col :span="14">
+                <el-card shadow="hover" class="result-card">
+                  <template #header>实时检测结果</template>
+                  <el-empty v-if="!realtimeResult" description="摄像头未开启或暂无检测结果" />
+                  <div v-else>
+                    <el-descriptions :column="2" border>
+                      <el-descriptions-item label="严重程度">
+                        <el-tag :type="severityTagType(realtimeResult.severity)">{{ realtimeResult.severity }}</el-tag>
+                      </el-descriptions-item>
+                      <el-descriptions-item label="平均置信度">{{ normalizeConfidence(realtimeResult.avg_confidence) }}%</el-descriptions-item>
+                    </el-descriptions>
+
+                    <div class="result-list">
+                      <div class="result-list-title">识别到 {{ realtimeResult.pest_types.length }} 种病虫害：</div>
+                      <div v-for="pest in realtimeResult.pest_types" :key="pest" class="pest-item">
+                        <span>{{ pest }}</span>
+                      </div>
+                    </div>
+
+                    <el-alert
+                      type="info"
+                      :closable="false"
+                      title="实时检测结果为模拟数据演示，接入 YOLOv8 模型后将替换为真实检测结果。"
+                      show-icon
+                      style="margin-top: 20px"
+                    />
+                  </div>
+                </el-card>
+              </el-col>
+            </el-row>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
     </el-card>
 
     <el-card shadow="never" class="panel-card">
@@ -166,7 +169,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref, onBeforeUnmount } from 'vue'
+import { onMounted, reactive, ref, onBeforeUnmount, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { VideoCamera } from '@element-plus/icons-vue'
 import { getSettings, testConnection, updateSettings } from '../api/settings'
@@ -179,6 +182,10 @@ const apiKeyPlaceholder = ref('尚未设置')
 const loadingSettings = ref(false)
 const saving = ref(false)
 const testing = ref(false)
+
+// Collapse state - camera section starts closed so it doesn't render
+// its config/video UI immediately when navigating to Settings
+const activeCollapse = ref([])
 
 // Real-time camera settings
 const cameraConfig = reactive({
@@ -401,6 +408,12 @@ onMounted(async () => {
 
 onBeforeUnmount(() => {
   if (cameraActive.value) {
+    stopCamera()
+  }
+})
+
+watch(activeCollapse, (names) => {
+  if (!names.includes('camera') && cameraActive.value) {
     stopCamera()
   }
 })
