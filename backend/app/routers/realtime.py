@@ -1,8 +1,10 @@
 """实时视频检测 WebSocket 接口"""
 import base64
 import json
+from io import BytesIO
 
 from fastapi import APIRouter, WebSocket, Query, WebSocketDisconnect
+from PIL import Image
 
 from .. import auth, mock_data
 
