@@ -8,3 +8,6 @@ INFO:     connection closed
 INFO:     ('127.0.0.1', 62203) - "WebSocket /api/ws/detect?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZXhwIjoxNzkxMjQ5MDg4fQ.4ZOHSyQ3Ki2DAItcrQ59m1Oyj1msw1tJ4XGQBR5NUhI" [accepted]
 INFO:     connection open
 INFO:     connection closed
+INFO:     ('127.0.0.1', 62217) - "WebSocket /api/ws/detect?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZXhwIjoxNzkxMjQ5MDg4fQ.4ZOHSyQ3Ki2DAItcrQ59m1Oyj1msw1tJ4XGQBR5NUhI" [accepted]
+INFO:     connection open
+INFO:     connection closed
