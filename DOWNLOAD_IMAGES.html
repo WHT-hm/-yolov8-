@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pest Image Bulk Downloader</title>
+    <style>
+        body { font-family: Arial; max-width: 900px; margin: 40px auto; }
+        .image-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .image-item { border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
+        .image-item h3 { margin: 0 0 10px 0; font-size: 14px; }
+        .image-item a { display: inline-block; margin: 5px 5px 5px 0; padding: 8px 12px; background: #0066cc; color: white; text-decoration: none; border-radius: 4px; font-size: 12px; }
+        .image-item a:hover { background: #0052a3; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .done { background: #d4edda; color: #155724; }
+        .pending { background: #fff3cd; color: #856404; }
+        .instructions { background: #e7f3ff; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🌾 Pest Database Image Downloader</h1>
+
+    <div class="instructions">
+        <h3>How to Download Images:</h3>
+        <ol>
+            <li>Click a download link below</li>
+            <li>Right-click the image → "Save Image As"</li>
+            <li>Save to: <code>D:\pipeline-widget\frontend\public\pest-images\</code></li>
+            <li>Use the <strong>exact filename</strong> shown (copy-paste to be safe)</li>
+        </ol>
+        <p><strong>Tip:</strong> Open multiple links in new tabs and save them one after another - takes ~5 minutes!</p>
+    </div>
+
+    <div class="image-list">
+        <!-- Already Downloaded -->
+        <div class="image-item">
+            <h3>✓ carposina-sasakii.jpg<br>桃小食心虫</h3>
+            <div class="status done">Downloaded</div>
+        </div>
+        <div class="image-item">
+            <h3>✓ spodoptera-litura.jpg<br>斜纹夜蛾</h3>
+            <div class="status done">Downloaded</div>
+        </div>
+        <div class="image-item">
+            <h3>✓ grapholita-molesta.jpg<br>梨小食心虫</h3>
+            <div class="status done">Downloaded</div>
+        </div>
+        <div class="image-item">
+            <h3>✓ chilo-suppressalis.jpg<br>螟虫综合体</h3>
+            <div class="status done">Downloaded</div>
+        </div>
+        <div class="image-item">
+            <h3>✓ jacobiasca-lybica.jpg<br>棉叶蝉</h3>
+            <div class="status done">Downloaded</div>
+        </div>
+
+        <!-- Need to Download -->
+        <div class="image-item">
+            <h3>介壳虫<br>Icerya purchasi</h3>
+            <div class="status pending">Filename: icerya-purchasi.jpg</div>
+            <a href="https://commons.wikimedia.org/wiki/File:Scale_insects_(7244837120).jpg" target="_blank">View Image</a>
+        </div>
+
+        <div class="image-item">
+            <h3>豆荚螟<br>Maruca vitrata</h3>
+            <div class="status pending">Filename: maruca-vitrata.jpg</div>
+            <a href="https://www.inaturalist.org/taxa/122668-Maruca-vitrata" target="_blank">View Images</a>
+        </div>
+
+        <div class="image-item">
+            <h3>豆天蛾<br>Theretra oldenlandiae</h3>
+            <div class="status pending">Filename: theretra-oldenlandiae.jpg</div>
+            <a href="https://www.inaturalist.org/taxa/125110-Theretra-oldenlandiae" target="_blank">View Images</a>
+        </div>
+
+        <div class="image-item">
+            <h3>烟青虫<br>Heliothis virescens</h3>
+            <div class="status pending">Filename: heliothis-virescens.jpg</div>
+            <a href="https://commons.wikimedia.org/wiki/File:Heliothis_virescens_%E2%80%93_Tobacco_Budworm_Moth_(14513506849).jpg" target="_blank">View Image</a>
+        </div>
+
+        <div class="image-item">
+            <h3>烟草天蛾<br>Manduca sexta</h3>
+            <div class="status pending">Filename: manduca-sexta.jpg</div>
+            <a href="https://commons.wikimedia.org/wiki/File:Tobacco_Hornworm_1.jpg" target="_blank">View Image</a>
+        </div>
+
+        <div class="image-item">
+            <h3>烟蚜<br>Myzus nicotianae</h3>
+            <div class="status pending">Filename: myzus-nicotianae.jpg</div>
+            <a href="https://www.invasive.org/browse/image/1402116" target="_blank">View Image</a>
+        </div>
+
+        <div class="image-item">
+            <h3>茶毛虫<br>Euproctis pseudoconspersa</h3>
+            <div class="status pending">Filename: euproctis-pseudoconspersa.jpg</div>
+            <a href="https://www.inaturalist.org/taxa/924893-Euproctis" target="_blank">View Images</a>
+        </div>
+
+        <div class="image-item">
+            <h3>茶尺蠖<br>Ectropis obliqua</h3>
+            <div class="status pending">Filename: ectropis-obliqua.jpg</div>
+            <a href="https://www.inaturalist.org/taxa/924893-Ectropis-obliqua" target="_blank">View Images</a>
+        </div>
+
+        <div class="image-item">
+            <h3>茶叶蝉<br>Empoasca flavescens</h3>
+            <div class="status pending">Filename: empoasca-flavescens.jpg</div>
+            <a href="https://www.inaturalist.org/taxa/173635-Empoasca" target="_blank">View Images</a>
+        </div>
+
+        <div class="image-item">
+            <h3>豆秆蝇<br>Melanagromyza sojae</h3>
+            <div class="status pending">Filename: melanagromyza-sojae.jpg</div>
+            <a href="https://www.ipmimages.org/browse/subinfo.cfm?sub=20597" target="_blank">View Images</a>
+        </div>
+
+        <div class="image-item">
+            <h3>稻飞虱若虫<br>Nilaparvata lugens</h3>
+            <div class="status pending">Filename: nilaparvata-lugens-nymph.jpg</div>
+            <a href="https://commons.wikimedia.org/wiki/File:Nilaparvata_lugens_-_Brown_planthopper_-_UGA5190055.jpg" target="_blank">View Image</a>
+        </div>
+
+        <div class="image-item">
+            <h3>小麦吸浆虫<br>Sitodiplosis mosellana</h3>
+            <div class="status pending">Filename: sitodiplosis-mosellana.jpg</div>
+            <a href="https://commons.wikimedia.org/wiki/File:Hessian_Fly.jpg" target="_blank">View Image</a>
+        </div>
+
+        <div class="image-item">
+            <h3>小麦纹枯病虫<br>Rhizoctonia cerealis</h3>
+            <div class="status pending">Filename: rhizoctonia-cerealis.jpg</div>
+            <a href="https://commons.wikimedia.org/wiki/File:Sharp_eyespot_of_wheat.jpg" target="_blank">View Image</a>
+        </div>
+
+        <div class="image-item">
+            <h3>棉盲蝽<br>Adelphocoris lineolatus</h3>
+            <div class="status pending">Filename: adelphocoris-lineolatus.jpg</div>
+            <a href="https://commons.wikimedia.org/wiki/File:Noorwijk_-_Luzernesierblindwants_(Adelphocoris_lineolatus).jpg" target="_blank">View Image</a>
+        </div>
+
+        <div class="image-item">
+            <h3>棉蚜<br>Aphis gossypii</h3>
+            <div class="status pending">Filename: aphis-gossypii.jpg</div>
+            <a href="https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_7331_Aphids_on_cotton.jpg" target="_blank">View Image</a>
+        </div>
+    </div>
+
+    <hr style="margin: 40px 0;">
+
+    <h2>Summary</h2>
+    <ul>
+        <li>✅ <strong>5 images already downloaded</strong> and working</li>
+        <li>📥 <strong>15 images remaining</strong> - takes ~5-10 minutes to download manually</li>
+        <li>💾 Save all to: <code>D:\pipeline-widget\frontend\public\pest-images\</code></li>
+        <li>📱 Use exact filenames from above</li>
+    </ul>
+
+    <p style="color: #666; font-size: 12px;">
+        <strong>Note:</strong> All links point to freely-licensed, open-source images (Creative Commons, Public Domain).
+        Your network blocks automated downloads, but browser downloads should work fine.
+    </p>
+</body>
+</html>

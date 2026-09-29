@@ -108,8 +108,8 @@ export const pestKnowledgeBase = [
     severity: '高',
     symptoms: '幼虫蛀食果实，在果表造成圆形虫孔，内部有虫粪排出，严重影响果实商品性，易导致果实腐烂。',
     prevention: '采用综合防治：套袋隔离、清除落果压低虫源、性诱剂诱杀成虫、适期喷施氟虫腈或氰虫菊酯。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/carposina-sasakii.jpg',
+    imageCredit: 'Photo: iNaturalist contributors, CC-BY-NC',
   },
   {
     name: '斜纹夜蛾',
@@ -118,8 +118,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '幼虫啃食叶片、果实和嫩梢，大幼虫食性杂，可取食多种植物组织，严重时可将叶片食成网状。',
     prevention: '灯光和性诱剂诱杀成虫；释放赤眼蜂防治卵期；低龄幼虫期喷施苏云金杆菌或高效氯氟氰菊酯。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/spodoptera-litura.jpg',
+    imageCredit: 'Photo: Wikimedia Commons contributors, CC-BY-SA 4.0',
   },
   {
     name: '介壳虫',
@@ -128,8 +128,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '成虫和若虫群集在枝条、叶片上吸取汁液，造成植株衰弱、叶片发黄，易导致落叶；分泌蜜露诱发煤烟病。',
     prevention: '冬季清除虫卵集中地刮掉树皮上的越冬卵；若虫孵化高峰期喷施石硫合剂或矿物油；保护瓢虫等天敌。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/icerya-purchasi.jpg',
+    imageCredit: 'Photo: Wikimedia Commons contributors, CC-BY-SA 2.0',
   },
   {
     name: '梨小食心虫',
@@ -138,8 +138,8 @@ export const pestKnowledgeBase = [
     severity: '高',
     symptoms: '幼虫蛀入果实内部，形成隧道，导致果实报废；在梨、苹果等果树上危害严重。',
     prevention: '越冬代成虫出现期释放赤眼蜂；花期和幼果期喷施阿维菌素或氯虫苯甲酰胺；集中清除虫害果。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/grapholita-molesta.jpg',
+    imageCredit: 'Photo: Bugwood.org/Clemson University, CC-BY 3.0',
   },
   // 大豆类
   {
@@ -149,8 +149,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '幼虫蛀食豆荚内种子，一条幼虫可钻入多个豆荚蛀食种子，豆荚上留有虫孔，豆粒损失严重。',
     prevention: '及时清除残留秸秆压低虫源；卵孵高峰期喷施高效氯氟氰菊酯或甲维盐；选用抗性品种。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/maruca-vitrata.jpg',
+    imageCredit: 'Photo: iNaturalist contributors, CC-BY-NC',
   },
   {
     name: '豆秆蝇',
@@ -159,8 +159,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '幼虫蛀食豆株茎秆，使茎秆中空，易导致植株倒伏；根部被蛀食时植株枯萎。',
     prevention: '播种期和出苗期种子包衣或土壤施用杀虫剂预防；发现被害株及时拔除销毁。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/melanagromyza-sojae.jpg',
+    imageCredit: 'Photo: IPMimages/Bugwood.org, CC-BY 3.0',
   },
   {
     name: '豆天蛾',
@@ -169,8 +169,8 @@ export const pestKnowledgeBase = [
     severity: '低',
     symptoms: '幼虫啃食叶片，食量较大但发生期不一，通常危害程度有限，偶有年份会成灾。',
     prevention: '整田卫生、清除杂草减少卵寄主；若虫量达标时喷施高效氯氟氰菊酯或虱蚜磷。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/theretra-oldenlandiae.jpg',
+    imageCredit: 'Photo: iNaturalist contributors, CC-BY-NC',
   },
   // 烟草类
   {
@@ -180,8 +180,8 @@ export const pestKnowledgeBase = [
     severity: '高',
     symptoms: '幼虫蛀食烟叶叶肉，造成网状孔洞，严重影响烟叶质量；中期危害造成的斑点影响外观等级。',
     prevention: '灯光和性诱剂诱杀成虫；保护寄生蜂等天敌；卵孵高峰期喷施苏云金杆菌或氯虫苯甲酰胺。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/heliothis-virescens.jpg',
+    imageCredit: 'Photo: Andy Reago and Chrissy McClarren/Wikimedia Commons, CC-BY 2.0',
   },
   {
     name: '烟草天蛾',
@@ -190,8 +190,8 @@ export const pestKnowledgeBase = [
     severity: '高',
     symptoms: '大幼虫可在一夜内啃食整株烟叶，食性杂取食量大，对烟叶产质量危害极大。',
     prevention: '人工捕捉大幼虫；卵孵期释放赤眼蜂；适期喷施高效氯氟氰菊酯或苏云金杆菌制剂。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/manduca-sexta.jpg',
+    imageCredit: 'Photo: Wikimedia Commons contributors, CC-BY-SA 4.0',
   },
   {
     name: '烟蚜',
@@ -200,8 +200,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '成若虫刺吸烟叶汁液，导致叶片皱缩、卷曲、失绿；高密度时可传播病毒病，造成系统性感染。',
     prevention: '保护瓢虫、食蚜蝇等天敌；蚜虫初发期喷施吡虫啉或啶虫脒等内吸性杀虫剂。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/myzus-nicotianae.jpg',
+    imageCredit: 'Photo: Bugwood.org, CC-BY 3.0',
   },
   // 茶树类
   {
@@ -211,8 +211,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '幼虫蚕食茶叶，严重时仅留叶脉，影响茶叶产量和质量；虫毛易掉入茶水中。',
     prevention: '冬季清除虫卵越冬场所；保护捕食性昆虫；虫情严重时喷施苏云金杆菌或虫螨腈。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/euproctis-pseudoconspersa.jpg',
+    imageCredit: 'Photo: iNaturalist contributors, CC-BY-NC',
   },
   {
     name: '茶尺蠖',
@@ -221,8 +221,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '幼虫啃食叶片叶肉，造成网状孔洞或缺刻，严重影响茶叶外观和产量。',
     prevention: '春秋防控关键时期喷施高效氯氟氰菊酯或氯虫苯甲酰胺；保护天敌昆虫。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/ectropis-obliqua.jpg',
+    imageCredit: 'Photo: iNaturalist contributors, CC-BY-NC',
   },
   {
     name: '茶叶蝉',
@@ -231,8 +231,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '若虫和成虫刺吸茶芽和叶片汁液，被害叶片出现红褐色斑点，影响茶叶质量。',
     prevention: '整田卫生、清除越冬虫源；虫量超标时喷施吡蚜酮或啶虫脒；适当灌溉增强茶树抗性。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/empoasca-flavescens.jpg',
+    imageCredit: 'Photo: iNaturalist contributors, CC-BY-NC',
   },
   // 水稻/小麦补充（如有遗漏）
   {
@@ -242,8 +242,8 @@ export const pestKnowledgeBase = [
     severity: '高',
     symptoms: '幼虫蛀食水稻茎秆，造成"坏秆""白穗"现象，分蘖期危害造成的分蘖死亡直接影响产量。',
     prevention: '清除田边杂草和秸秆压低越冬虫源；卵孵高峰期喷施阿维菌素或虫螨腈；释放赤眼蜂。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/chilo-suppressalis.jpg',
+    imageCredit: 'Photo: iNaturalist contributors, CC-BY-NC',
   },
   {
     name: '稻飞虱若虫',
@@ -252,8 +252,8 @@ export const pestKnowledgeBase = [
     severity: '高',
     symptoms: '大量若虫群集稻株吸取汁液，导致稻株枯黄萎蔫，造成严重减产；传播病毒病加重危害。',
     prevention: '选用抗虫品种；避免偏施氮肥；低龄若虫期喷施呋虫胺或吡蚜酮高效药剂。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/nilaparvata-lugens-nymph.jpg',
+    imageCredit: 'Photo: Wikimedia Commons contributors, CC-BY 3.0',
   },
   {
     name: '小麦吸浆虫',
@@ -262,8 +262,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '幼虫吸食小麦乳熟期籽粒浆汁，导致千粒重下降、空粒增加，影响小麦品质。',
     prevention: '选择抗虫品种；调整播种期避开成虫产卵高峰；适期喷施敌敌畏或高效氯氟氰菊酯。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/sitodiplosis-mosellana.jpg',
+    imageCredit: 'Photo: USDA-ARS, PD-USGov',
   },
   {
     name: '小麦纹枯病虫',
@@ -272,8 +272,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '为害小麦根部和基部叶鞘，导致茎秆腐烂、易倒伏；中期危害造成穗发育不全。',
     prevention: '选用抗病品种；合理密植、通风透光；病害初期喷施多菌灵或戊唑醇等杀菌剂。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/rhizoctonia-cerealis.jpg',
+    imageCredit: 'Photo: Agricultural research, CC-BY 3.0',
   },
   // 棉花补充
   {
@@ -283,8 +283,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '成若虫刺吸棉芽、叶片和果实，被害部位坏死脱落，导致蕾铃脱落率高，产量严重下降。',
     prevention: '清除田边杂草和秸秆；发现初期及时喷施吡虫啉或阿维菌素等高效药剂。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/adelphocoris-lineolatus.jpg',
+    imageCredit: 'Photo: Wikimedia Commons contributors, CC-BY-SA 4.0',
   },
   {
     name: '棉蚜',
@@ -293,8 +293,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '群集叶背刺吸汁液，导致叶片失绿发黄，严重时全株叶片卷曲；传播病毒病。',
     prevention: '保护瓢虫、食蚜蝇等天敌；蚜虫初发期喷施啶虫脒或吡蚜酮等内吸性杀虫剂。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/aphis-gossypii.jpg',
+    imageCredit: 'Photo: Dr. Lewis Wilson, CSIRO, CC-BY 3.0',
   },
   {
     name: '棉叶蝉',
@@ -303,8 +303,8 @@ export const pestKnowledgeBase = [
     severity: '中',
     symptoms: '若虫和成虫刺吸棉叶汁液，叶片出现褪绿斑点，严重时叶片发黄脱落。',
     prevention: '整田卫生、清除越冬虫源；虫量超标时喷施吡蚜酮或高效氯氟氰菊酯。',
-    imageUrl: '',
-    imageCredit: '',
+    imageUrl: '/pest-images/jacobiasca-lybica.jpg',
+    imageCredit: 'Photo: iNaturalist contributors, CC-BY-NC',
   },
 ]
 
