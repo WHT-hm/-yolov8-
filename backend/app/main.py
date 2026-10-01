@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from .database import Base, engine, SessionLocal
-from .routers import auth, dashboard, detections, meta, settings, organizations, realtime
+from .routers import auth, dashboard, detections, meta, settings, organizations, realtime, judgment
 from . import auth as auth_module
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +41,7 @@ app.include_router(detections.router)
 app.include_router(meta.router)
 app.include_router(organizations.router)
 app.include_router(realtime.router)
+app.include_router(judgment.router)
 
 
 @app.get("/api/health")

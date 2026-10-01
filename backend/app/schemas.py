@@ -247,3 +247,19 @@ class DetectionRecordDB(BaseModel):
             return float(v)
         return v
 
+
+# ------------------ 判断模型（Jev）相关 ------------------
+
+class JudgmentStatusOut(BaseModel):
+    """当前用户是否已在设置页配置判断模型接口"""
+    configured: bool
+
+
+class YoloVerificationOut(BaseModel):
+    """判断模型对某条检测记录识别结果的复核结论"""
+    detection_id: int
+    is_plausible: bool
+    confidence_alignment: str
+    suggested_alternative: Optional[str] = None
+    note: str
+

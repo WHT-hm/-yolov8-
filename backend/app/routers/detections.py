@@ -7,7 +7,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from sqlalchemy.orm import Session
 
-from .. import auth, mock_data, models
+from .. import auth, judgment_model, mock_data, models
 from ..database import get_db
 from ..schemas import DetectionListResponse, DetectionRecord
 
@@ -104,10 +104,29 @@ async def create_detection(
 
     image_url = f"/static/uploads/{filename}"
 
-    # 生成模拟检测结果
+    # 第一步：YOLOv8 检测（当前由 mock_data 占位，产出 pest_types / severity /
+    # avg_confidence / boxes；接入真实 YOLOv8 推理后替换的也只是这一步）。
     mock_result = mock_data.create_mock_detection(crop_type, image_url)
 
-    # 保存到数据库
+    # 第二步：JEV 判断模型自动复核——对检测结果做"第二意见"校验，不改写
+    # YOLO 的原始输出，只在 remark 中给出复核结论。未配置判断模型接口，或
+    # 调用因任何原因失败时静默跳过，不影响检测结果本身的返回。
+    remark = None
+    try:
+        review = await judgment_model.judge_yolo_result(
+            settings=current_user.settings,
+            predicted_pest=mock_result.pest_types[0],
+            predicted_confidence=mock_result.avg_confidence,
+            crop_type=mock_result.crop_type,
+            pest_crop_map=mock_data.PEST_CROP_MAP,
+        )
+    except Exception:
+        # JEV 复核是尽力而为的增强；任何异常都不应导致检测接口整体失败。
+        review = None
+    if review is not None:
+        remark = review.note
+
+    # 第三步：结果输出——保存到数据库，YOLO 检测字段与 JEV 复核结论一并返回。
     detection = models.Detection(
         user_id=current_user.id,
         org_id=current_user.org_id,
@@ -118,6 +137,7 @@ async def create_detection(
         severity=mock_result.severity,
         avg_confidence=int(round(mock_result.avg_confidence * 100)),  # Store as 0-100 percentage
         boxes=json.dumps([box.dict() for box in mock_result.boxes]),
+        remark=remark,
     )
     db.add(detection)
     db.commit()
